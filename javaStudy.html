@@ -1,0 +1,63 @@
+
+<!doctype html>
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title> Study </title>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="colors.js"></script>
+</head>
+
+<body>
+     <h2> My Web Study </h2>
+
+      <!-- // button.. -->
+      <input id="night_day" type="button" value="night" onclick="
+       nightDayHandler(this);
+       ">
+
+    <!-- // list.. -->
+      <ol id = "nav">
+      </ol>
+
+    <!-- // 주석.. -->
+      <article>
+      </article>
+
+    <!-- // 스크립트... -->
+      <script>
+
+       // 리스트 파일을 호출하여  받은 데이터를  id = nav 에 붙이기...
+       fetch('list').then(function(response){
+         response.text().then(function(text){
+           document.querySelector('#nav').innerHTML = text;
+         })
+       });
+
+       //.. 웹페이지 제목 해시태크에서  #! 이후 상세 항목에서
+       //.. 파일명 추출하여 파일 로딩후 표시..
+       if(location.hash){
+          fetchName(location.hash.substr(2));
+        } else {
+          fetchName('welcome');
+        }
+
+
+        // 서버에서 response 로 온 데이터  article 위치에 표시..
+        function fetchName(name) {
+          fetch(name).then(function(response){
+            response.text().then(function(text){
+              document.querySelector('article').innerHTML = text;
+            })
+          });
+        }
+
+
+      </script>
+
+</body>
+
+</html>
